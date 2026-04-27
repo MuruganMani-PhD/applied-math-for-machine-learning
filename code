@@ -1,1 +1,61 @@
 
+**Import Libraries**
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+**Linear Algebra (Data Representation)**
+
+# Load dataset
+data = load_breast_cancer()
+X = data.data
+y = data.target
+
+print("Shape of data matrix:", X.shape)
+print("First row (sample):", X[0])
+
+
+
+**Probability (Prediction)**
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Train model
+model = LogisticRegression(max_iter=5000)
+model.fit(X_train, y_train)
+
+# Predict probability
+probabilities = model.predict_proba(X_test)
+
+print("Sample probabilities:\n", probabilities[:5])
+
+
+
+Output is probability, not just 0 or 1
+Example: [0.2, 0.8] → 80% chance
+
+**Optimization (Training Process)**
+
+# Evaluate model
+predictions = model.predict(X_test)
+accuracy = accuracy_score(y_test, predictions)
+
+print("Model Accuracy:", accuracy)
+
+
+**Simple Gradient Descent Visualization**
+
+# Simulating loss curve
+epochs = 50
+loss = np.exp(-0.1 * np.arange(epochs)) + 0.02*np.random.rand(epochs)
+
+plt.plot(loss)
+plt.title("Optimization: Loss Decreasing")
+plt.xlabel("Epochs")
+plt.ylabel("Loss")
+plt.show()
